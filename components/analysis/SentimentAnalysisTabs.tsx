@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { SentimentPieChart } from "./SentimentPieChart";
-import { getBadgeVariant, formatPercentage } from "@/lib/helper";
+import { formatPercentage, getSentimentBadgeVariant } from "@/lib/helper";
 import { SentimentAnalysisData } from "@/types/analysis";
 
 interface SentimentAnalysisTabsProps {
@@ -62,7 +62,9 @@ export function SentimentAnalysisTabs({
           <CardContent>
             <p className="text-lg italic mb-4">&quot;{caption}&quot;</p>
             <div className="flex gap-4 items-center">
-              <Badge variant={getBadgeVariant(sentiment.caption.score)}>
+              <Badge
+                variant={getSentimentBadgeVariant(sentiment.caption.score)}
+              >
                 {sentiment.caption.label}
               </Badge>
               <span>

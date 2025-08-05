@@ -58,3 +58,15 @@ export interface SentimentAnalysisData {
 }
 
 export type SentimentVariant = "positive" | "negative" | "neutral";
+
+export interface ReelComment {
+  id: string;
+  text: string;
+  username: string;
+  likes: number;
+  sentiment: "positive" | "negative" | "neutral" | "mixed";
+  isSpam?: boolean;
+}
+
+export type SortKey = "likes" | "sentiment";
+export type SortDirection = "asc" | "desc";

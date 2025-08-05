@@ -1,5 +1,12 @@
 import { Icons } from "@/components/icons";
-import { MetricCardData, ReelMetrics, TrendDirection } from "@/types/analysis";
+import {
+  MetricCardData,
+  ReelComment,
+  ReelMetrics,
+  SortDirection,
+  SortKey,
+  TrendDirection,
+} from "@/types/analysis";
 
 export const formatLargeNumber = (num: number): string => {
   if (num >= 1000000) {
@@ -83,7 +90,7 @@ export const generateCardMetrics = (metrics: ReelMetrics): MetricCardData[] => {
   ];
 };
 
-export const getBadgeVariant = (
+export const getSentimentBadgeVariant = (
   score: number
 ): "default" | "secondary" | "destructive" => {
   if (score > 0.6) return "default";
@@ -93,4 +100,40 @@ export const getBadgeVariant = (
 
 export const formatPercentage = (value: number): string => {
   return `${Math.round(value * 100)}%`;
+};
+
+export const getCommentsBadgeVariant = (
+  sentiment: ReelComment["sentiment"]
+): "default" | "secondary" | "destructive" | "outline" => {
+  switch (sentiment) {
+    case "positive":
+      return "default";
+    case "negative":
+      return "destructive";
+    case "mixed":
+      return "outline";
+    default:
+      return "secondary";
+  }
+};
+
+export const sortComments = (
+  comments: ReelComment[],
+  key: SortKey,
+  direction: SortDirection
+): ReelComment[] => {
+  return [...comments].sort((a, b) => {
+    // Special handling for sentiment sorting
+    if (key === "sentiment") {
+      const sentimentOrder = ["positive", "neutral", "mixed", "negative"];
+      const aIndex = sentimentOrder.indexOf(a.sentiment);
+      const bIndex = sentimentOrder.indexOf(b.sentiment);
+      return direction === "asc" ? aIndex - bIndex : bIndex - aIndex;
+    }
+
+    // Normal sorting for likes
+    if (a[key] < b[key]) return direction === "asc" ? -1 : 1;
+    if (a[key] > b[key]) return direction === "asc" ? 1 : -1;
+    return 0;
+  });
 };
