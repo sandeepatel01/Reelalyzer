@@ -70,4 +70,48 @@ export const Icons = {
       />
     </svg>
   ),
+
+  verified: (props: IconProps) => (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path d="M22 12l-2-2v-2l-2-2-2-1-2 1-2-1-2 1-2-1-2 2v2l-2 2 2 2v2l2 2 2 1 2-1 2 1 2-1 2-2v-2l2-2zM10 16l-4-4 1.41-1.41L10 13.17l6.59-6.59L18 8l-8 8z" />
+    </svg>
+  ),
+
+  briefcase: (props: IconProps) => (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M3 7a2 2 0 012-2h3V4a1 1 0 011-1h4a1 1 0 011 1v1h3a2 2 0 012 2v2H3V7z"
+      />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M3 11h18v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6z"
+      />
+    </svg>
+  ),
+
+  star: (props: IconProps) => (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path d="M12 2l2.39 7.26H22l-5.8 4.21 2.2 7.3L12 17l-6.4 3.77 2.2-7.3L2 9.26h7.61z" />
+    </svg>
+  ),
 };
