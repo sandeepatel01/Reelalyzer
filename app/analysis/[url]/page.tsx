@@ -7,6 +7,7 @@ import { HashtagAnalysis } from "@/components/analysis/HashtagAnalysis";
 import { MetricsDashboard } from "@/components/analysis/MetricsDashboard";
 import UserProfileCard from "@/components/cards/UserProfileCard";
 import { SentimentAnalysisTabs } from "@/components/analysis/SentimentAnalysisTabs";
+import { generateDummyAnalysis } from "@/lib/dummyData";
 
 export default async function AnalysisPage({
   params,
@@ -19,7 +20,8 @@ export default async function AnalysisPage({
     return notFound();
   }
 
-  const analysisData = await fetchReelAnalysis(decodedUrl);
+  // Using dummy data temporarily
+  const analysisData = generateDummyAnalysis(decodedUrl);
 
   return (
     <div className="container mx-auto px-4 py-8">
