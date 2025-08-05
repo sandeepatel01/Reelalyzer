@@ -29,10 +29,10 @@ export type TrendDirection = "up" | "down" | "neutral";
 
 export interface MetricCardData {
   title: string;
-  value: string;
+  value: string | number;
   icon: React.ReactNode;
   trend: TrendDirection;
-  change: number;
+  change?: number;
 }
 
 export interface MetricsDashboardProps {
@@ -52,19 +52,20 @@ export interface SentimentAnalysisData {
     negative: number;
   };
   caption: {
+    text: string;
     label: string;
     score: number;
   };
 }
 
-export type SentimentVariant = "positive" | "negative" | "neutral";
+export type SentimentVariant = "positive" | "negative" | "neutral" | "mixed";
 
 export interface ReelComment {
   id: string;
   text: string;
   username: string;
   likes: number;
-  sentiment: "positive" | "negative" | "neutral" | "mixed";
+  sentiment: SentimentVariant;
   isSpam?: boolean;
 }
 
