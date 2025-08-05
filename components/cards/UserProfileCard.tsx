@@ -1,7 +1,8 @@
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent } from '@/components/ui/card'
-import { Icons } from '@/components/icons'
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { Icons } from "@/components/icons";
+import { UserProfile } from "@/types/analysis";
 
 export default function UserProfileCard({ user }: { user: UserProfile }) {
   return (
@@ -14,7 +15,7 @@ export default function UserProfileCard({ user }: { user: UserProfile }) {
               {user.username.charAt(0).toUpperCase()}
             </AvatarFallback>
           </Avatar>
-          
+
           <div className="text-center space-y-1">
             <h2 className="text-xl font-bold flex items-center gap-2">
               @{user.username}
@@ -53,5 +54,5 @@ export default function UserProfileCard({ user }: { user: UserProfile }) {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

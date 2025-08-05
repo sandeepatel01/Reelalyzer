@@ -114,4 +114,73 @@ export const Icons = {
       <path d="M12 2l2.39 7.26H22l-5.8 4.21 2.2 7.3L12 17l-6.4 3.77 2.2-7.3L2 9.26h7.61z" />
     </svg>
   ),
+
+  eye: (props: IconProps) => (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"
+      />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  ),
+
+  trendingUp: (props: IconProps) => (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
+      <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+      <polyline points="17 6 23 6 23 12" />
+    </svg>
+  ),
+
+  heart: (props: IconProps) => (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 
+        2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09 
+        C13.09 3.81 14.76 3 16.5 3 
+        19.58 3 22 5.42 22 8.5 
+        c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+      />
+    </svg>
+  ),
+
+  messageCircle: (props: IconProps) => (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M21 11.5a8.38 8.38 0 01-.9 3.8 
+        8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 
+        8.5 8.5 0 014.7-7.6 
+        8.38 8.38 0 013.8-.9h.5a8.5 8.5 0 018 8v.5z"
+      />
+    </svg>
+  ),
 };
