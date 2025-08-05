@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -38,6 +39,10 @@ export function UrlInputForm() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
+    toast("Analyzing Reel: ", {
+      description: data.reelUrl,
+    });
+
     // Redirect to analysis page with URL parameter
     router.push(`/analysis?url=${encodeURIComponent(data.reelUrl)}`);
   }
