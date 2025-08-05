@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getTrendColor } from "@/lib/metricsHelper";
+import { getTrendColor } from "@/lib/helper";
 import { MetricCardData } from "@/types/analysis";
 
 interface MetricCardProps {

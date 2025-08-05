@@ -1,4 +1,3 @@
-// utils.ts
 import { Icons } from "@/components/icons";
 import { MetricCardData, ReelMetrics, TrendDirection } from "@/types/analysis";
 
@@ -82,4 +81,16 @@ export const generateCardMetrics = (metrics: ReelMetrics): MetricCardData[] => {
       ),
     },
   ];
+};
+
+export const getBadgeVariant = (
+  score: number
+): "default" | "secondary" | "destructive" => {
+  if (score > 0.6) return "default";
+  if (score < 0.4) return "destructive";
+  return "secondary";
+};
+
+export const formatPercentage = (value: number): string => {
+  return `${Math.round(value * 100)}%`;
 };

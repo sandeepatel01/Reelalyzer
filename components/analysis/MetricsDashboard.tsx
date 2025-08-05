@@ -1,6 +1,6 @@
 import React from "react";
 import { MetricsSkeletonLoader } from "./SkeletonLoader";
-import { generateCardMetrics } from "@/lib/metricsHelper";
+import { generateCardMetrics } from "@/lib/helper";
 import { MetricsDashboardProps } from "@/types/analysis";
 import { MetricCard } from "../cards/MetricCard";
 

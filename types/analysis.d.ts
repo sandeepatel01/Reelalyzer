@@ -39,3 +39,22 @@ export interface MetricsDashboardProps {
   metrics: ReelMetrics;
   isLoading?: boolean;
 }
+
+export interface SentimentAnalysisData {
+  overall: {
+    positive: number;
+    neutral: number;
+    negative: number;
+  };
+  breakdown: {
+    positive: number;
+    neutral: number;
+    negative: number;
+  };
+  caption: {
+    label: string;
+    score: number;
+  };
+}
+
+export type SentimentVariant = "positive" | "negative" | "neutral";
