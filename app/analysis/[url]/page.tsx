@@ -9,11 +9,16 @@ import UserProfileCard from "@/components/cards/UserProfileCard";
 import { SentimentAnalysisTabs } from "@/components/analysis/SentimentAnalysisTabs";
 import { generateDummyAnalysis } from "@/lib/dummyData";
 
-export default async function AnalysisPage({
-  params,
-}: {
-  params: { url: string };
-}) {
+interface PageProps {
+  params: {
+    url: string;
+  };
+  searchParams?: {
+    [key: string]: string | string[] | undefined;
+  };
+}
+
+export default async function AnalysisPage({ params }: PageProps) {
   const decodedUrl = decodeURIComponent(params.url);
 
   if (!decodedUrl.includes("instagram.com/reel/")) {
