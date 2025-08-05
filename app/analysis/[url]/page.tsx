@@ -10,16 +10,22 @@ import { SentimentAnalysisTabs } from "@/components/analysis/SentimentAnalysisTa
 import { generateDummyAnalysis } from "@/lib/dummyData";
 
 interface PageProps {
-  params: {
-    url: string;
-  };
-  searchParams?: {
+  params: Promise<{ url: string }>;
+  searchParams?: Promise<{
     [key: string]: string | string[] | undefined;
-  };
+  }>;
 }
 
-export default async function AnalysisPage({ params }: PageProps) {
-  const decodedUrl = decodeURIComponent(params.url);
+export default async function Page({ params, searchParams }: PageProps) {
+  const resolvedParams = await params;
+  const decodedUrl = decodeURIComponent(resolvedParams.url);
+
+  let resolvedSearchParams:
+    | { [key: string]: string | string[] | undefined }
+    | undefined;
+  if (searchParams) {
+    resolvedSearchParams = await searchParams;
+  }
 
   if (!decodedUrl.includes("instagram.com/reel/")) {
     return notFound();
