@@ -1,6 +1,9 @@
 import React from "react";
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/home/HeroSection";
+import { FeaturesGrid } from "@/components/cards/FeaturesGrid";
+import { ExampleReels } from "@/components/ExampleReels";
+import { UrlInputForm } from "@/components/forms/UrlInputForm";
 
 export const metadata: Metadata = {
   title: "Home | Realalyzer",
@@ -8,12 +11,20 @@ export const metadata: Metadata = {
     "Reel Analyzer that takes an Instagram Reel URL and provides detailed analytics and insights.",
 };
 
-const page = () => {
+export default function Home() {
   return (
-    <div>
+    <main className="flex-1">
       <HeroSection />
-    </div>
+      <section
+        id="analyze-now"
+        className="w-full py-12 bg-gray-50 dark:bg-gray-800"
+      >
+        <div className="container max-w-3xl px-4 md:px-6">
+          <UrlInputForm />
+        </div>
+      </section>
+      <FeaturesGrid />
+      <ExampleReels />
+    </main>
   );
-};
-
-export default page;
+}
