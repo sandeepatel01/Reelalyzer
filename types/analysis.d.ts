@@ -70,3 +70,9 @@ export interface ReelComment {
 
 export type SortKey = "likes" | "sentiment";
 export type SortDirection = "asc" | "desc";
+
+export interface HashtagStats {
+  tag: string;
+  reach: number;
+  posts: number;
+}
