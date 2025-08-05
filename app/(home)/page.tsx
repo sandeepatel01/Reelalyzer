@@ -1,9 +1,10 @@
-import React from "react";
+import React, { Suspense } from "react";
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/home/HeroSection";
 import { FeaturesGrid } from "@/components/cards/FeaturesGrid";
 import { ExampleReels } from "@/components/ExampleReels";
 import { UrlInputForm } from "@/components/forms/UrlInputForm";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const metadata: Metadata = {
   title: "Home | Realalyzer",
@@ -23,7 +24,9 @@ export default function Home() {
           <UrlInputForm />
         </div>
       </section>
-      <FeaturesGrid />
+      <Suspense fallback={<Skeleton className="h-[400px] w-full" />}>
+        <FeaturesGrid />
+      </Suspense>
       <ExampleReels />
     </main>
   );
