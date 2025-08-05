@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 
 export function HeroSection() {
@@ -26,14 +26,14 @@ export function HeroSection() {
             </Button>
           </div>
         </div>
-        <Image
+        {/* <Image
           src="/images/hero-image.webp"
           alt="Analytics Dashboard"
           width={600}
           height={400}
           className="mx-auto aspect-video overflow-hidden rounded-xl object-cover"
           priority
-        />
+        /> */}
       </div>
     </section>
   );
