@@ -1,5 +1,8 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { DEMO_REELS } from "@/lib/constants";
+import Link from "next/link";
 
 export function ExampleReels() {
   return (
@@ -21,9 +24,9 @@ export function ExampleReels() {
               className="flex items-center gap-2"
               asChild
             >
-              <a href={`/analysis?url=${encodeURIComponent(reel.url)}`}>
+              <Link href={`/analysis/${encodeURIComponent(reel.url)}`}>
                 <span className="truncate max-w-[160px]">{reel.title}</span>
-              </a>
+              </Link>
             </Button>
           ))}
         </div>

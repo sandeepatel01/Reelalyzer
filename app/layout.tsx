@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Realalyzer App",
   description:
-    "Reel Analyzer that takes an Instagram Reel URL and provides detailed analytics and insights. ",
+    "Reel Analyzer that takes an Instagram Reel URL and provides detailed analytics and insights.",
 };
 
 export default function RootLayout({

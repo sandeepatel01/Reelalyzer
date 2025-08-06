@@ -31,7 +31,6 @@ export default async function Page({ params, searchParams }: PageProps) {
     return notFound();
   }
 
-  // Using dummy data temporarily
   const analysisData = generateDummyAnalysis(decodedUrl);
 
   return (

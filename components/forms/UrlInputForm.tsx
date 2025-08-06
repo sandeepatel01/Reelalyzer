@@ -43,8 +43,9 @@ export function UrlInputForm() {
       description: data.reelUrl,
     });
 
-    // Redirect to analysis page with URL parameter
-    router.push(`/analysis?url=${encodeURIComponent(data.reelUrl)}`);
+    // Use encodeURIComponent for URL safety
+    const encodedUrl = encodeURIComponent(data.reelUrl);
+    router.push(`/analysis/${encodedUrl}`); // Change to dynamic route format
   }
 
   return (
