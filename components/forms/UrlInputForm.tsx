@@ -43,9 +43,8 @@ export function UrlInputForm() {
       description: data.reelUrl,
     });
 
-    // Use encodeURIComponent for URL safety
     const encodedUrl = encodeURIComponent(data.reelUrl);
-    router.push(`/analysis/${encodedUrl}`); // Change to dynamic route format
+    router.push(`/analysis/${encodedUrl}`);
   }
 
   return (

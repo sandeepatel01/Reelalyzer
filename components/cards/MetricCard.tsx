@@ -8,9 +8,9 @@ interface MetricCardProps {
   showChange?: boolean;
 }
 
-export const MetricCard: React.FC<MetricCardProps> = ({ 
+export const MetricCard: React.FC<MetricCardProps> = ({
   metric,
-  showChange = true 
+  showChange = true,
 }) => {
   return (
     <Card className="hover:shadow-md transition-shadow">
