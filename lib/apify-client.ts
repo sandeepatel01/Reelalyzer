@@ -1,7 +1,8 @@
 import { ApifyClient } from "apify-client";
 import { unstable_cache } from "next/cache";
 import { z } from "zod";
-import { RawComment, rawDataSchema, ReelAnalysisResponse } from "@/types/index";
+import { RawComment, ReelAnalysisResponse } from "@/types/index";
+import { rawDataSchema } from "./validation";
 
 let apifyClient: ApifyClient | null = null;
 
