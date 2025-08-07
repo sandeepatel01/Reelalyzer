@@ -24,28 +24,8 @@ export interface ReelAnalysisResponse {
   owner?: Owner;
   topComments: Comment[];
   hashtags: string[];
+  cached?: boolean;
 }
 
 // Raw API data types
-export interface RawComment {
-  text?: unknown;
-  likes?: unknown;
-  postedAt?: unknown;
-}
-
-export interface RawOwner {
-  username?: unknown;
-  profilePicUrl?: unknown;
-}
-
-export interface RawReelData {
-  id?: string;
-  caption?: string;
-  likeCount?: unknown;
-  commentCount?: unknown;
-  playCount?: unknown;
-  postedAt?: string;
-  owner?: RawOwner;
-  comments?: unknown[];
-  hashtags?: unknown[];
-}
+export type RawReelData = z.infer<typeof rawDataSchema>;
