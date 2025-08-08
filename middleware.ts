@@ -1,9 +1,8 @@
 import { NextResponse, NextRequest } from "next/server";
 
 const rateLimitMap = new Map<string, { count: number; lastReset: number }>();
-const CLEANUP_INTERVAL = 60 * 1000; // 1 minute cleanup
+const CLEANUP_INTERVAL = 60 * 1000;
 
-// Periodic cleanup of old entries
 setInterval(() => {
   const now = Date.now();
   for (const [ip, entry] of rateLimitMap.entries()) {
@@ -16,8 +15,7 @@ setInterval(() => {
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  // Apply only to /api/scrape route
-  if (pathname.startsWith("/api/scrape")) {
+  if (pathname.startsWith("/api/analyze")) {
     const ip =
       request.headers.get("x-forwarded-for")?.split(",")[0] ||
       request.headers.get("x-real-ip") ||
@@ -53,5 +51,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: "/api/scrape",
+  matcher: "/api/analyze",
 };

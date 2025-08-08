@@ -44,6 +44,7 @@ export const rawDataSchema = z.object({
   postedAt: z.string().optional(),
   timestamp: z.string().optional(),
   ownerUsername: z.string().optional(),
+  ownerProfilePicUrl: z.string().url().optional(),
   ownerId: z.string().optional(),
   owner: z
     .object({

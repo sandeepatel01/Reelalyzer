@@ -34,6 +34,7 @@ export interface ApifyReelData {
   playCount?: number;
   videoPlayCount?: number;
   videoViewCount?: number;
+  ownerProfilePicUrl?: string;
 }
 
 export interface ReelAnalysisResponse {
