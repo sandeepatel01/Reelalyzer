@@ -1,118 +1,149 @@
 "use client";
 import { useEffect, useRef } from "react";
 import * as d3 from "d3";
-import cloud from "d3-cloud";
+import d3Cloud from "d3-cloud";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
-type Word = {
-  text: string;
-  value: number;
-};
-
-type WordCloudWord = {
+interface WordCloudWord {
   text: string;
   size: number;
+  value?: number;
   x?: number;
   y?: number;
-};
+  rotate?: number;
+  font?: string;
+  padding?: number;
+}
 
 export function WordCloud({
   comments,
-  width = 500,
-  height = 300,
+  width = 600,
+  height = 400,
+  maxWords = 50,
+  minWordLength = 4,
 }: {
-  comments: { text: string; likes: number }[];
+  comments: { text: string; likes?: number }[];
   width?: number;
   height?: number;
+  maxWords?: number;
+  minWordLength?: number;
 }) {
   const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
-    if (!comments.length || !svgRef.current) return;
+    if (!comments?.length || !svgRef.current) return;
 
-    // Step 1: Process comments into words
-    const wordsMap = comments
-      .flatMap((comment) => {
-        const cleanedText = comment.text.replace(/[^\w\s]/gi, "");
-        return cleanedText.toLowerCase().split(/\s+/);
-      })
-      .filter((word) => word.length > 3)
-      .reduce((acc: Record<string, number>, word: string) => {
-        acc[word] = (acc[word] || 0) + 1;
-        return acc;
-      }, {});
+    // Process comments into word data
+    const wordsData = processComments(comments, minWordLength, maxWords);
+    if (!wordsData.length) {
+      const svg = d3.select(svgRef.current);
+      svg.selectAll("*").remove();
+      svg
+        .append("text")
+        .text("No words to display")
+        .attr("x", width / 2)
+        .attr("y", height / 2)
+        .attr("text-anchor", "middle")
+        .style("font-family", "sans-serif");
+      return;
+    }
 
-    // Step 2: Convert to WordCloudWord format
-    const words: WordCloudWord[] = Object.entries(wordsMap)
-      .map(([text, value]) => ({
-        text,
-        size: value * 10 + 10,
-        value,
-      }))
-      .sort((a, b) => b.value - a.value)
-      .slice(0, 50);
-
-    if (words.length === 0) return;
-
-    // Step 3: Clear previous SVG
+    // Clear previous render
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();
 
-    // Step 4: Create word cloud layout
-    const layout = cloud()
+    // Set up color scale
+    const colorScale = d3.scaleOrdinal(d3.schemeTableau10);
+
+    // Create word cloud layout
+    const layout = d3Cloud<WordCloudWord>()
       .size([width, height])
-      .words(words)
+      .words(wordsData)
       .padding(5)
-      .rotate(() => 0)
+      .rotate(() => (Math.random() > 0.5 ? 0 : 90))
       .font("sans-serif")
-      .fontSize((d) => d.size || 10)
-      .on("end", (words: WordCloudWord[]) => {
-        svg
-          .append("g")
-          .attr("transform", `translate(${width / 2},${height / 2})`)
-          .selectAll("text")
-          .data(words)
-          .enter()
-          .append("text")
-          .style("font-size", (d) => `${d.size}px`)
-          .style("fill", "#3b82f6") // Blue color
-          .attr("text-anchor", "middle")
-          .attr(
-            "transform",
-            (d) => `translate(${[d.x || 0, d.y || 0]})rotate(0)`
-          )
-          .text((d) => d.text);
-      });
+      .fontSize((d: WordCloudWord) => d.size || 10)
+      .on("end", (words: WordCloudWord[]) => draw(words, colorScale));
 
     layout.start();
-  }, [comments, height, width]);
 
-  if (!comments.length) {
-    return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Comment Word Cloud</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-sm text-gray-500">No comments to analyze</p>
-        </CardContent>
-      </Card>
-    );
-  }
+    function draw(
+      words: WordCloudWord[],
+      colorScale: d3.ScaleOrdinal<string, string>
+    ) {
+      const group = svg
+        .append("g")
+        .attr("transform", `translate(${width / 2},${height / 2})`);
+
+      group
+        .selectAll("text")
+        .data(words)
+        .enter()
+        .append("text")
+        .style("font-size", (d) => `${d.size}px`)
+        .style("font-family", (d) => d.font || "sans-serif")
+        .style("fill", (_, i) => colorScale(i.toString()))
+        .attr("text-anchor", "middle")
+        .attr("transform", (d) => `translate(${[d.x, d.y]})rotate(${d.rotate})`)
+        .text((d) => d.text)
+        .attr("class", "word-cloud-text")
+        .on("mouseover", function () {
+          d3.select(this).style("font-weight", "bold");
+        })
+        .on("mouseout", function () {
+          d3.select(this).style("font-weight", "normal");
+        });
+    }
+  }, [comments, width, height, maxWords, minWordLength]);
 
   return (
-    <Card>
+    <Card className="w-full">
       <CardHeader>
-        <CardTitle>Comment Word Cloud</CardTitle>
+        <CardTitle>Top Keywords</CardTitle>
       </CardHeader>
       <CardContent>
-        <svg
-          ref={svgRef}
-          width={width}
-          height={height}
-          className="w-full h-[300px]"
-        />
+        <div className="w-full overflow-auto">
+          <svg
+            ref={svgRef}
+            width={width}
+            height={height}
+            className="mx-auto"
+            style={{ fontFamily: "sans-serif" }}
+          />
+        </div>
       </CardContent>
     </Card>
   );
+}
+
+function processComments(
+  comments: { text: string; likes?: number }[],
+  minWordLength: number,
+  maxWords: number
+): WordCloudWord[] {
+  // Combine all comments into one string
+  const allText = comments
+    .map((c) => c.text)
+    .join(" ")
+    .toLowerCase();
+
+  // Extract words and count frequencies
+  const wordsMap = allText
+    .split(/[\s,.!?;:"'()]+/)
+    .filter((word) => word.length >= minWordLength)
+    .reduce((acc: Record<string, number>, word) => {
+      acc[word] = (acc[word] || 0) + 1;
+      return acc;
+    }, {});
+
+  // Convert to array and sort by frequency
+  return Object.entries(wordsMap)
+    .map(([text, value]) => ({ text, value }))
+    .sort((a, b) => b.value - a.value)
+    .slice(0, maxWords)
+    .map((word) => ({
+      text: word.text,
+      size: Math.log2(word.value) * 10 + 10, // Logarithmic scaling
+      value: word.value,
+    }));
 }
