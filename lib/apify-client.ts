@@ -135,6 +135,7 @@ const transformData = (
       isVerified: rawData.owner?.is_verified || false,
     },
     topComments: allComments.slice(0, 5).map((c: RawComment) => ({
+      id: c.id || `comment_${Math.random().toString(36).substring(2, 9)}`,
       text: c.text,
       likes: c.likes || c.likesCount || 0,
       timestamp: c.timestamp || c.postedAt || new Date().toISOString(),

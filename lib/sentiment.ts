@@ -15,6 +15,6 @@ export const analyzeText = (text: string): SentimentResult => {
       ? "negative"
       : "neutral";
   } catch {
-    return "neutral"; 
+    return "neutral";
   }
 };

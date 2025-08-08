@@ -5,13 +5,13 @@ import { ReelAnalysisResponseUI } from "@/types";
 import { analyzeText } from "@/lib/sentiment";
 import { formatDistanceToNow } from "date-fns";
 import { ErrorAlert } from "@/components/ErrorAlert";
-import { HashtagsList } from "@/components/HashtagsList";
-import { MetricsDashboard } from "@/components/MetricsDashboard";
-import { UserProfile } from "@/components/UserProfile";
+import { HashtagsList } from "@/components/analysis/HashtagsList";
+import { MetricsDashboard } from "@/components/analysis/MetricsDashboard";
+import { UserProfile } from "@/components/analysis/UserProfile";
 import Loader from "@/components/Loader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { SentimentTabs } from "@/components/SentimentTabs";
+import { SentimentTabs } from "@/components/analysis/SentimentTabs";
 import { CommentAnalysis } from "@/components/comments/comment-analysis";
 
 export default function AnalysisPage() {
