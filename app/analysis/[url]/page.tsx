@@ -14,6 +14,7 @@ import { SentimentTabs } from "@/components/analysis/SentimentTabs";
 import { CommentAnalysis } from "@/components/comments/comment-analysis";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/icons";
+import { Home } from "lucide-react";
 
 export default function AnalysisPage() {
   const params = useParams();
@@ -127,6 +128,14 @@ export default function AnalysisPage() {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Left sidebar - Profile info */}
         <div className="lg:col-span-1 space-y-6">
+          <Button
+            onClick={() => router.push("/")}
+            variant="ghost"
+            className="w-full justify-start text-zinc-400 hover:text-white hidden lg:flex"
+          >
+            <Home className="mr-2 h-4 w-4" />
+            Home
+          </Button>
           <UserProfile owner={data!.owner} />
           <Card className="bg-zinc-900/50 border-zinc-800">
             <CardContent className="pt-6">
