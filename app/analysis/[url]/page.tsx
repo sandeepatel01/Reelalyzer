@@ -6,7 +6,7 @@ import { analyzeText } from "@/lib/sentiment";
 import { formatDistanceToNow } from "date-fns";
 import { ErrorAlert } from "@/components/ErrorAlert";
 import { HashtagsList } from "@/components/HashtagsList";
-import { MetricsCard } from "@/components/MetricsCard";
+import { MetricsDashboard } from "@/components/MetricsDashboard";
 import { SentimentBadge } from "@/components/SentimentBadge";
 import { TopComments } from "@/components/TopComments";
 import { UserProfile } from "@/components/UserProfile";
@@ -99,8 +99,8 @@ export default function AnalysisPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <MetricsCard metrics={data!.metrics} />
+        <div className="lg:col-span-3 space-y-6">
+          <MetricsDashboard metrics={data!.metrics} />
           <SentimentBadge sentiment={analyzeText(data!.caption || "")} />
           <HashtagsList hashtags={data!.hashtags} />
         </div>
