@@ -14,7 +14,6 @@ export default function Home() {
       return;
     }
 
-    // URL ko encode karke analysis page pe redirect
     const encodedUrl = encodeURIComponent(url);
     router.push(`/analysis/${encodedUrl}`);
   };
