@@ -37,6 +37,31 @@ export interface ApifyReelData {
   ownerProfilePicUrl?: string;
 }
 
+export interface ReelAnalysisResponseUI {
+  id: string;
+  url: string;
+  caption?: string;
+  metrics: {
+    likes: number;
+    comments: number;
+    views: number;
+  };
+  postedAt: string;
+  owner: {
+    username: string;
+    profilePicUrl: string;
+    id: string;
+    isVerified?: boolean;
+  };
+  topComments: {
+    text: string;
+    likes: number;
+    timestamp: string;
+    ownerUsername?: string;
+  }[];
+  hashtags: string[];
+}
+
 export interface ReelAnalysisResponse {
   id: string;
   url: string;

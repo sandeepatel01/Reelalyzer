@@ -1,10 +1,10 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { ReelAnalysisResponse } from "@/types/index";
+import { ReelAnalysisResponseUI } from "@/types/index";
 
 export function MetricsCard({
   metrics,
 }: {
-  metrics: ReelAnalysisResponse["metrics"];
+  metrics: ReelAnalysisResponseUI["metrics"];
 }) {
   const engagement = ((metrics.likes + metrics.comments) / metrics.views) * 100;
 

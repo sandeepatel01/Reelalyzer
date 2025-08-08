@@ -1,10 +1,10 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { ReelAnalysisResponse } from "@/types/index";
+import { ReelAnalysisResponseUI } from "@/types/index";
 
 export function UserProfile({
   owner,
 }: {
-  owner: ReelAnalysisResponse["owner"];
+  owner: ReelAnalysisResponseUI["owner"];
 }) {
   return (
     <div className="flex items-center gap-2">
