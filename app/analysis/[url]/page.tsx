@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { ReelAnalysisResponseUI } from "@/types";
 import { analyzeText } from "@/lib/sentiment";
@@ -7,11 +7,13 @@ import { formatDistanceToNow } from "date-fns";
 import { ErrorAlert } from "@/components/ErrorAlert";
 import { HashtagsList } from "@/components/HashtagsList";
 import { MetricsDashboard } from "@/components/MetricsDashboard";
-import { SentimentBadge } from "@/components/SentimentBadge";
 import { TopComments } from "@/components/TopComments";
 import { UserProfile } from "@/components/UserProfile";
 import { WordCloud } from "@/components/WordCloud";
 import Loader from "@/components/Loader";
+import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { SentimentTabs } from "@/components/SentimentTabs";
 
 export default function AnalysisPage() {
   const params = useParams();
@@ -100,8 +102,25 @@ export default function AnalysisPage() {
         </div>
 
         <div className="lg:col-span-3 space-y-6">
-          <MetricsDashboard metrics={data!.metrics} />
-          <SentimentBadge sentiment={analyzeText(data!.caption || "")} />
+          <Suspense fallback={<Skeleton className="h-[180px] w-full" />}>
+            <MetricsDashboard metrics={data!.metrics} />
+          </Suspense>
+
+          {/* Sentiment Analysis */}
+          <Card>
+            <CardContent className="pt-6">
+              <Suspense fallback={<Skeleton className="h-[300px] w-full" />}>
+                <SentimentTabs
+                  caption={data!.caption || ""}
+                  comments={data!.topComments.map((c) => ({
+                    text: c.text,
+                    sentiment: analyzeText(c.text),
+                  }))}
+                />
+              </Suspense>
+            </CardContent>
+          </Card>
+
           <HashtagsList hashtags={data!.hashtags} />
         </div>
 
