@@ -9,11 +9,11 @@ import { Loader2 } from "lucide-react";
 const formSchema = z.object({
   url: z
     .string()
-    .min(1, "URL required hai")
+    .min(1, "URL required for analysis")
     .url("Invalid URL")
     .refine(
       (url) => url.includes("instagram.com") || url.includes("instagr.am"),
-      "Instagram URL hona chahiye"
+      "Instagram Reel URL required"
     ),
 });
 
