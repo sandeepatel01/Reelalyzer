@@ -14,6 +14,15 @@ export async function POST(request: NextRequest) {
     let responseData: ReelAnalysisResponse;
     try {
       responseData = await getCachedReelData(reelUrl);
+
+      // Agar cached data mein profile pic nahi hai to fresh data fetch karein
+      if (
+        !responseData.owner.profilePicUrl ||
+        responseData.owner.profilePicUrl.includes("unavatar.io")
+      ) {
+        console.log("Fetching fresh data as profile pic was missing in cache");
+        responseData = await analyzeReel(reelUrl);
+      }
     } catch (cacheError) {
       console.warn("Cache miss, fetching fresh data", cacheError);
       responseData = await analyzeReel(reelUrl);

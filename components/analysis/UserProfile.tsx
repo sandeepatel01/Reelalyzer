@@ -1,5 +1,4 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Icons } from "@/components/icons";
 import { ReelAnalysisResponseUI } from "@/types/index";
@@ -10,61 +9,42 @@ export function UserProfile({
   owner: ReelAnalysisResponseUI["owner"];
 }) {
   return (
-    <Card>
+    <Card className="bg-zinc-900/50 border border-zinc-800 rounded-xl shadow-lg hover:shadow-[#d87e36]/20 transition-shadow duration-300">
       <CardContent className="pt-6">
         <div className="flex flex-col items-center space-y-4">
-          <Avatar className="h-20 w-20">
-            <AvatarImage src={owner.profilePicUrl} alt={owner.username} />
-            <AvatarFallback>
-              {owner.username.charAt(0).toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
+          {/* Profile Picture with Glow Effect */}
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#d87e36] to-[#f0a15e] rounded-full blur opacity-75 group-hover:opacity-100 transition-all duration-300"></div>
+            <Avatar className="h-24 w-24 relative border-2 border-zinc-800 group-hover:border-[#d87e36] transition-colors duration-300">
+              <AvatarImage
+                src={
+                  owner.profilePicUrl ||
+                  `https://unavatar.io/instagram/${owner.username}`
+                }
+                alt={owner.username}
+                className="object-cover"
+                onError={(e) => {
+                  // Agar image load nahi hoti to fallback activate karo
+                  const target = e.target as HTMLImageElement;
+                  target.src = `https://unavatar.io/instagram/${owner.username}`;
+                }}
+              />
+              <AvatarFallback className="bg-zinc-800 text-white font-medium">
+                {owner.username.charAt(0).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+          </div>
 
-          <div className="text-center space-y-1">
-            <h2 className="text-xl font-bold flex items-center gap-2">
-              @{owner.username}
+          {/* Username with Verification Badge */}
+          <div className="text-center space-y-2">
+            <div className="flex items-center justify-center gap-2">
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-white to-[#d87e36] bg-clip-text text-transparent">
+                @{owner.username}
+              </h2>
               {owner.isVerified && (
-                <Icons.verified className="h-4 w-4 text-blue-500" />
+                <Icons.verified className="h-5 w-5 text-[#d87e36] animate-pulse" />
               )}
-            </h2>
-            {/* <p className="text-sm text-muted-foreground">{owner.bio}</p> */}
-          </div>
-
-          <div className="flex gap-4 text-center">
-            <div>
-              <p className="font-semibold">
-                S4
-                {/* {owner.followers.toLocaleString()} */}
-              </p>
-              <p className="text-sm text-muted-foreground">Followers</p>
             </div>
-            <div>
-              <p className="font-semibold">
-                S4
-                {/* {owner.following.toLocaleString()} */}
-              </p>
-              <p className="text-sm text-muted-foreground">Following</p>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-2">
-            {/* {owner.isBusiness && (
-              <Badge variant="secondary">
-                <Icons.briefcase className="h-3 w-3 mr-1" />
-                Business
-              </Badge>
-            )}
-            {owner.isProfessional && (
-              <Badge variant="secondary">
-                <Icons.star className="h-3 w-3 mr-1" />
-                Creator
-              </Badge>
-            )} */}
-
-            <Badge variant="secondary">
-              <Icons.briefcase className="h-3 w-3 mr-1" />
-              Business
-            </Badge>
           </div>
         </div>
       </CardContent>

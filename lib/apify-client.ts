@@ -113,6 +113,14 @@ const transformData = (
     ...(rawData.latestComments || []),
   ];
 
+  const ownerUsername =
+    rawData.ownerUsername || rawData.owner?.username || "unknown";
+  const profilePicUrl =
+    rawData.ownerProfilePicUrl ||
+    rawData.owner?.profile_pic_url ||
+    rawData.owner?.profilePicUrl ||
+    `https://unavatar.io/instagram/${ownerUsername}`;
+
   return {
     id: rawData.id || `reel_${Date.now()}`,
     url: reelUrl,
@@ -128,9 +136,8 @@ const transformData = (
     },
     postedAt: rawData.timestamp || rawData.postedAt || new Date().toISOString(),
     owner: {
-      username: rawData.ownerUsername || rawData.owner?.username || "unknown",
-      profilePicUrl:
-        rawData.ownerProfilePicUrl || rawData.owner?.profilePicUrl || "",
+      username: ownerUsername,
+      profilePicUrl,
       id: rawData.ownerId || rawData.owner?.id || "",
       isVerified: rawData.owner?.is_verified || false,
     },

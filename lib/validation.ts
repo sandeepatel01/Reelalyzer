@@ -50,6 +50,7 @@ export const rawDataSchema = z.object({
     .object({
       username: z.string().optional(),
       profilePicUrl: z.string().url().optional(),
+      profile_pic_url: z.string().url().optional(),
       id: z.string().optional(),
       is_verified: z.boolean().optional(),
     })

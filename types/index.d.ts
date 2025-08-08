@@ -13,6 +13,8 @@ export interface Owner {
   profilePicUrl: string;
   id: string;
   isVerified?: boolean;
+  isBusiness?: boolean;
+  isProfessional?: boolean;
 }
 
 export interface ReelMetrics {
