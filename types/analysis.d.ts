@@ -65,9 +65,13 @@ export interface ReelComment {
   text: string;
   username: string;
   likes: number;
-  sentiment: SentimentVariant;
+  sentiment: "positive" | "negative" | "neutral" | "mixed";
   isSpam?: boolean;
+  timestamp: string;
 }
+
+export type SortKey = "likes" | "sentiment";
+export type SortDirection = "asc" | "desc";
 
 export type SortKey = "likes" | "sentiment";
 export type SortDirection = "asc" | "desc";

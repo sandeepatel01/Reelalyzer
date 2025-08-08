@@ -1,8 +1,11 @@
 "use client";
+
 import { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import d3Cloud from "d3-cloud";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Comment } from "@/types/index";
+import { processCommentsForWordCloud } from "@/lib/comment-utils";
 
 interface WordCloudWord {
   text: string;
@@ -22,7 +25,7 @@ export function WordCloud({
   maxWords = 50,
   minWordLength = 4,
 }: {
-  comments: { text: string; likes?: number }[];
+  comments: Comment[];
   width?: number;
   height?: number;
   maxWords?: number;
@@ -33,7 +36,11 @@ export function WordCloud({
   useEffect(() => {
     if (!comments?.length || !svgRef.current) return;
 
-    const wordsData = processComments(comments, minWordLength, maxWords);
+    const wordsData = processCommentsForWordCloud(
+      comments,
+      minWordLength,
+      maxWords
+    );
     if (!wordsData.length) {
       const svg = d3.select(svgRef.current);
       svg.selectAll("*").remove();
@@ -83,11 +90,31 @@ export function WordCloud({
         .attr("transform", (d) => `translate(${[d.x, d.y]})rotate(${d.rotate})`)
         .text((d) => d.text)
         .attr("class", "word-cloud-text")
-        .on("mouseover", function () {
+        .on("mouseover", function (event, d) {
           d3.select(this).style("font-weight", "bold");
+          // Show tooltip with frequency count
+          const tooltip = svg
+            .append("g")
+            .attr("class", "tooltip")
+            .attr("transform", `translate(${event.pageX},${event.pageY - 20})`);
+
+          tooltip
+            .append("rect")
+            .attr("width", 60)
+            .attr("height", 20)
+            .attr("fill", "white")
+            .attr("stroke", "#ddd");
+
+          tooltip
+            .append("text")
+            .attr("x", 30)
+            .attr("y", 15)
+            .attr("text-anchor", "middle")
+            .text(`${d.value} uses`);
         })
         .on("mouseout", function () {
           d3.select(this).style("font-weight", "normal");
+          svg.selectAll(".tooltip").remove();
         });
     }
   }, [comments, width, height, maxWords, minWordLength]);
@@ -95,7 +122,7 @@ export function WordCloud({
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Top Keywords</CardTitle>
+        <CardTitle>Most Used Words in Comments</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="w-full overflow-auto">
@@ -110,33 +137,4 @@ export function WordCloud({
       </CardContent>
     </Card>
   );
-}
-
-function processComments(
-  comments: { text: string; likes?: number }[],
-  minWordLength: number,
-  maxWords: number
-): WordCloudWord[] {
-  const allText = comments
-    .map((c) => c.text)
-    .join(" ")
-    .toLowerCase();
-
-  const wordsMap = allText
-    .split(/[\s,.!?;:"'()]+/)
-    .filter((word) => word.length >= minWordLength)
-    .reduce((acc: Record<string, number>, word) => {
-      acc[word] = (acc[word] || 0) + 1;
-      return acc;
-    }, {});
-
-  return Object.entries(wordsMap)
-    .map(([text, value]) => ({ text, value }))
-    .sort((a, b) => b.value - a.value)
-    .slice(0, maxWords)
-    .map((word) => ({
-      text: word.text,
-      size: Math.log2(word.value) * 10 + 10,
-      value: word.value,
-    }));
 }

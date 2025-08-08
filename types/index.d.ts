@@ -53,12 +53,7 @@ export interface ReelAnalysisResponseUI {
     id: string;
     isVerified?: boolean;
   };
-  topComments: {
-    text: string;
-    likes: number;
-    timestamp: string;
-    ownerUsername?: string;
-  }[];
+  topComments: Comment[];
   hashtags: string[];
 }
 
@@ -77,3 +72,28 @@ export interface ReelAnalysisResponse {
 
 export type RawReelData = z.infer<typeof rawDataSchema>;
 export type RawComment = z.infer<typeof rawDataSchema>["comments"][number];
+
+export interface Comment {
+  id: string;
+  text: string;
+  ownerUsername?: string;
+  likes: number;
+  timestamp: string;
+  replies?: Comment[];
+  replyCount?: number;
+  sentiment?: "positive" | "negative" | "neutral" | "mixed";
+  isSpam?: boolean;
+  ownerProfilePicUrl?: string;
+}
+
+export interface CommentStats {
+  totalComments: number;
+  avgLikes: number;
+  avgLength: number;
+  spamCount: number;
+  positivePercent: number;
+  negativePercent: number;
+}
+
+export type SortKey = "likes" | "replies" | "timestamp";
+export type SortDirection = "asc" | "desc";

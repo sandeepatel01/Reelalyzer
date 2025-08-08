@@ -7,13 +7,12 @@ import { formatDistanceToNow } from "date-fns";
 import { ErrorAlert } from "@/components/ErrorAlert";
 import { HashtagsList } from "@/components/HashtagsList";
 import { MetricsDashboard } from "@/components/MetricsDashboard";
-import { TopComments } from "@/components/TopComments";
 import { UserProfile } from "@/components/UserProfile";
-import { WordCloud } from "@/components/WordCloud";
 import Loader from "@/components/Loader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SentimentTabs } from "@/components/SentimentTabs";
+import { CommentAnalysis } from "@/components/comments/comment-analysis";
 
 export default function AnalysisPage() {
   const params = useParams();
@@ -121,13 +120,16 @@ export default function AnalysisPage() {
             </CardContent>
           </Card>
 
+          {/* Comments Analysis */}
+          <Card>
+            <CardContent className="pt-6">
+              <Suspense fallback={<Skeleton className="h-[400px] w-full" />}>
+                <CommentAnalysis comments={data!.topComments} />
+              </Suspense>
+            </CardContent>
+          </Card>
+
           <HashtagsList hashtags={data!.hashtags} />
-        </div>
-
-        <WordCloud comments={data!.topComments} />
-
-        <div className="w-full lg:w-3/4">
-          <TopComments comments={data!.topComments} />
         </div>
       </div>
     </div>
