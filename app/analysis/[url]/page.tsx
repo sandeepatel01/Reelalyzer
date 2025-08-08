@@ -148,12 +148,7 @@ export default function AnalysisPage() {
 
         {/* Main content area */}
         <div className="lg:col-span-3 space-y-6">
-          {/* Metrics Dashboard */}
-          <Suspense
-            fallback={<Skeleton className="h-[180px] w-full rounded-xl" />}
-          >
-            <MetricsDashboard metrics={data!.metrics} />
-          </Suspense>
+          <MetricsDashboard metrics={data!.metrics} />
 
           {/* Sentiment Analysis */}
           <Card className="bg-zinc-900/50 border-zinc-800">
@@ -164,17 +159,13 @@ export default function AnalysisPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <Suspense
-                fallback={<Skeleton className="h-[300px] w-full rounded-xl" />}
-              >
-                <SentimentTabs
-                  caption={data!.caption || ""}
-                  comments={data!.topComments.map((c) => ({
-                    text: c.text,
-                    sentiment: analyzeText(c.text),
-                  }))}
-                />
-              </Suspense>
+              <SentimentTabs
+                caption={data!.caption || ""}
+                comments={data!.topComments.map((c) => ({
+                  text: c.text,
+                  sentiment: analyzeText(c.text),
+                }))}
+              />
             </CardContent>
           </Card>
 
@@ -187,11 +178,7 @@ export default function AnalysisPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <Suspense
-                fallback={<Skeleton className="h-[400px] w-full rounded-xl" />}
-              >
-                <CommentAnalysis comments={data!.topComments} />
-              </Suspense>
+              <CommentAnalysis comments={data!.topComments} />
             </CardContent>
           </Card>
 
