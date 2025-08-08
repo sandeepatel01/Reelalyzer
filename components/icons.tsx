@@ -391,4 +391,18 @@ export const Icons = {
       <line x1="16" y1="3" x2="14" y2="21" />
     </svg>
   ),
+
+  trendingDown: (props: IconProps) => (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
+      <polyline points="1 18 7 12 13 18 19 12" />
+      <polyline points="23 18 19 18 19 12" />
+    </svg>
+  ),
 };

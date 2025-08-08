@@ -13,23 +13,23 @@ export function MetricsDashboard({
   const cardMetrics = [
     {
       title: "Likes",
-      value: metrics.likes.toLocaleString(), // Format numbers with commas
-      icon: <Icons.heart className="h-4 w-4" />,
+      value: metrics.likes.toLocaleString(),
+      icon: <Icons.heart className="h-4 w-4 text-[#d87e36]" />,
     },
     {
       title: "Comments",
       value: metrics.comments.toLocaleString(),
-      icon: <Icons.messageCircle className="h-4 w-4" />,
+      icon: <Icons.messageCircle className="h-4 w-4 text-[#d87e36]" />,
     },
     {
       title: "Views",
       value: metrics.views.toLocaleString(),
-      icon: <Icons.eye className="h-4 w-4" />,
+      icon: <Icons.eye className="h-4 w-4 text-[#d87e36]" />,
     },
     {
       title: "Engagement Rate",
       value: `${engagement.toFixed(2)}%`,
-      icon: <Icons.trendingUp className="h-4 w-4" />,
+      icon: <Icons.trendingUp className="h-4 w-4 text-[#d87e36]" />,
     },
   ];
 
@@ -51,17 +51,28 @@ interface MetricCardProps {
   title: string;
   value: string | number;
   icon?: React.ReactNode;
+  trend?: "up" | "down" | "neutral";
 }
 
-function MetricCard({ title, value, icon }: MetricCardProps) {
+function MetricCard({ title, value, icon, trend }: MetricCardProps) {
   return (
-    <Card className="hover:shadow-md transition-shadow">
-      <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
-        {icon && <span className="text-muted-foreground">{icon}</span>}
+    <Card className="bg-zinc-900/50 border-zinc-800 hover:border-[#d87e36]/50 transition-colors">
+      <CardHeader className="flex flex-row items-center justify-between p-4 pb-2 space-y-0">
+        <CardTitle className="text-sm font-medium text-zinc-300">
+          {title}
+        </CardTitle>
+        <div className="flex items-center gap-1">
+          {trend === "up" && (
+            <Icons.trendingUp className="h-3 w-3 text-green-500" />
+          )}
+          {trend === "down" && (
+            <Icons.trendingDown className="h-3 w-3 text-red-500" />
+          )}
+          {icon}
+        </div>
       </CardHeader>
-      <CardContent>
-        <div className="text-2xl font-bold">{value}</div>
+      <CardContent className="p-4 pt-0">
+        <div className="text-2xl font-bold text-white">{value}</div>
       </CardContent>
     </Card>
   );
