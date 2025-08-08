@@ -13,22 +13,22 @@ export function SentimentBadge({
   const sentimentConfig = {
     positive: {
       label: "Positive",
-      color: "bg-green-500 hover:bg-green-600",
+      color: "bg-green-500 hover:bg-green-600 border-green-600",
     },
     negative: {
       label: "Negative",
-      color: "bg-red-500 hover:bg-red-600",
+      color: "bg-red-500 hover:bg-red-600 border-red-600",
     },
     neutral: {
       label: "Neutral",
-      color: "bg-gray-500 hover:bg-gray-600",
+      color: "bg-yellow-500 hover:bg-yellow-600 border-yellow-600",
     },
   };
 
   return (
     <Badge
       className={cn(
-        "text-white font-medium",
+        "text-white font-medium border",
         sentimentConfig[sentiment].color,
         className
       )}

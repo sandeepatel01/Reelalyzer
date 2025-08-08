@@ -1,5 +1,5 @@
 "use client";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ReelAnalysisResponseUI } from "@/types";
 import { analyzeText } from "@/lib/sentiment";
@@ -10,7 +10,6 @@ import { MetricsDashboard } from "@/components/analysis/MetricsDashboard";
 import { UserProfile } from "@/components/analysis/UserProfile";
 import Loader from "@/components/Loader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import { SentimentTabs } from "@/components/analysis/SentimentTabs";
 import { CommentAnalysis } from "@/components/comments/comment-analysis";
 import { Button } from "@/components/ui/button";
