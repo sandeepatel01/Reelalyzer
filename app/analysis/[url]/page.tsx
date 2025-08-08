@@ -90,9 +90,9 @@ export default function AnalysisPage() {
   }
 
   return (
-    <div className="container mx-auto p-4 md:p-8 lg:p-12">
-      <div className="mt-8 space-y-6">
-        <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
+    <div className="container mx-auto px-4 py-8">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="lg:col-span-1 space-y-6">
           <UserProfile owner={data!.owner} />
           <p className="text-sm text-gray-500">
             Posted {formatDistanceToNow(new Date(data!.postedAt))} ago
