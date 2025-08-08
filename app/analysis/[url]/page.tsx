@@ -168,7 +168,6 @@ export default function AnalysisPage() {
             </CardContent>
           </Card>
 
-          {/* Comments Analysis */}
           <Card className="bg-zinc-900/50 border-zinc-800">
             <CardHeader>
               <CardTitle className="text-white flex items-center gap-2">
