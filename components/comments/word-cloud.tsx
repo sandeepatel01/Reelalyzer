@@ -30,7 +30,6 @@ export function WordCloud({
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 600, height: 400 });
 
-  // Responsive width aur height ke liye
   useEffect(() => {
     const updateDimensions = () => {
       if (containerRef.current) {
@@ -71,7 +70,6 @@ export function WordCloud({
       return;
     }
 
-    // Aapke theme ke colors use karenge
     const colorScale = d3.scaleOrdinal([
       "#d87e36", // Primary orange
       "#8884d8", // Purple
@@ -83,7 +81,7 @@ export function WordCloud({
     const layout = d3Cloud<WordCloudWord>()
       .size([dimensions.width, dimensions.height])
       .words(wordsData)
-      .padding(8) // Thoda padding badhaya
+      .padding(8)
       .rotate(() => (Math.random() > 0.5 ? 0 : 90))
       .font("sans-serif")
       .fontSize((d) => d.size || 10)

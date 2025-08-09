@@ -17,7 +17,7 @@ interface EngagementTrendProps {
 }
 
 export function EngagementTrend({ comments }: EngagementTrendProps) {
-  // Group comments by date (improved for mobile)
+  // Group comments by date
   const dailyData = comments.reduce(
     (
       acc: Record<string, { date: string; comments: number; likes: number }>,

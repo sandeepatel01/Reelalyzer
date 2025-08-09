@@ -19,7 +19,6 @@ export function CommentAnalysis({ comments }: CommentAnalysisProps) {
 
   return (
     <div className="space-y-6">
-      {/* Stats Overview - Improved with consistent colors */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
         <StatCard
           title="Total Comments"
@@ -62,13 +61,11 @@ export function CommentAnalysis({ comments }: CommentAnalysisProps) {
         />
       </div>
 
-      {/* Main Analysis - Better grid layout */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <TopComments comments={comments} />
         <SpamComments comments={comments} />
       </div>
 
-      {/* Engagement Trend - Improved styling */}
       <Card className="bg-zinc-900/50 border-zinc-800">
         <CardHeader className="border-b border-zinc-800">
           <CardTitle className="flex items-center gap-2 text-white">
@@ -81,7 +78,6 @@ export function CommentAnalysis({ comments }: CommentAnalysisProps) {
         </CardContent>
       </Card>
 
-      {/* Word Cloud - Better responsive behavior */}
       <Card className="bg-zinc-900/50 border-zinc-800">
         <CardHeader className="border-b border-zinc-800">
           <CardTitle className="flex items-center gap-2 text-white">

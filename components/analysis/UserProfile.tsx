@@ -12,7 +12,6 @@ export function UserProfile({
     <Card className="bg-zinc-900/50 border border-zinc-800 rounded-xl shadow-lg hover:shadow-[#d87e36]/20 transition-shadow duration-300">
       <CardContent className="pt-6">
         <div className="flex flex-col items-center space-y-4">
-          {/* Profile Picture with Glow Effect */}
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-[#d87e36] to-[#f0a15e] rounded-full blur opacity-75 group-hover:opacity-100 transition-all duration-300"></div>
             <Avatar className="h-24 w-24 relative border-2 border-zinc-800 group-hover:border-[#d87e36] transition-colors duration-300">
@@ -24,7 +23,7 @@ export function UserProfile({
                 alt={owner.username}
                 className="object-cover"
                 onError={(e) => {
-                  // Agar image load nahi hoti to fallback activate karo
+                  // Agar image load nahi hoti to fallback activate
                   const target = e.target as HTMLImageElement;
                   target.src = `https://unavatar.io/instagram/${owner.username}`;
                 }}
