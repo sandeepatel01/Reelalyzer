@@ -20,8 +20,8 @@ export default function Home() {
 
   return (
     <>
-      <div className="w-full max-w-3xl mx-auto">
-        <div className="text-center mb-8 md:mb-12">
+      <div className="w-full max-w-3xl mx-auto  bg-zinc-900">
+        <div className="text-center mb-8 md:mb-12 mt-10">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-[#d87e36] bg-clip-text text-transparent">
             Instagram Reel Analyzer
           </h1>
