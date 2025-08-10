@@ -3,7 +3,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from "recharts";
 import { cn } from "@/lib/utils";
 import { SentimentBadge } from "./SentimentBadge";
 import { analyzeText } from "@/lib/sentiment";
@@ -58,22 +58,22 @@ export function SentimentTabs({ caption, comments }: SentimentTabsProps) {
 
   return (
     <Tabs defaultValue="overview" className="space-y-4">
-      <TabsList className="bg-zinc-800 border border-zinc-700">
+      <TabsList className="bg-zinc-800 border border-zinc-700 flex flex-wrap">
         <TabsTrigger
           value="overview"
-          className="data-[state=active]:bg-[#d87e36] data-[state=active]:text-white"
+          className="data-[state=active]:bg-[#d87e36] data-[state=active]:text-white flex-1"
         >
           Overview
         </TabsTrigger>
         <TabsTrigger
           value="caption"
-          className="data-[state=active]:bg-[#d87e36] data-[state=active]:text-white"
+          className="data-[state=active]:bg-[#d87e36] data-[state=active]:text-white flex-1"
         >
           Caption
         </TabsTrigger>
         <TabsTrigger
           value="comments"
-          className="data-[state=active]:bg-[#d87e36] data-[state=active]:text-white"
+          className="data-[state=active]:bg-[#d87e36] data-[state=active]:text-white flex-1"
         >
           Comments
         </TabsTrigger>
@@ -90,25 +90,20 @@ export function SentimentTabs({ caption, comments }: SentimentTabsProps) {
                 Overall Sentiment
               </CardTitle>
             </CardHeader>
-            <CardContent className="flex flex-col items-center gap-6">
+            <CardContent className="flex flex-col items-center gap-4">
               <SentimentBadge
                 sentiment={overallSentiment}
                 className="text-lg px-6 py-2"
               />
-              <div className="h-[200px] w-full">
+              <div className="w-full h-[250px] sm:h-[300px]">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
                       data={chartData}
                       cx="50%"
                       cy="50%"
-                      labelLine={false}
-                      outerRadius={80}
-                      fill="#8884d8"
+                      outerRadius="70%"
                       dataKey="value"
-                      label={({ name, percent = 0 }) =>
-                        `${name} ${(percent * 100).toFixed(0)}%`
-                      }
                     >
                       {chartData.map((entry, index) => (
                         <Cell
@@ -123,6 +118,7 @@ export function SentimentTabs({ caption, comments }: SentimentTabsProps) {
                         />
                       ))}
                     </Pie>
+                    <Legend verticalAlign="bottom" height={36} />
                   </PieChart>
                 </ResponsiveContainer>
               </div>
